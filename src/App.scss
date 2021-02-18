@@ -1,0 +1,17 @@
+#root {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 100vw;
+    height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    background: url(../public/assets/img/bg-fon.jpg) #555555cb;
+    background-blend-mode: multiply;
+}

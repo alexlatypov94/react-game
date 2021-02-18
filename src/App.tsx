@@ -1,15 +1,23 @@
-import React, { Component, ReactElement } from "react";
+import React, { ReactElement } from "react";
+import { Header, Footer, StartMenu, Game } from "./components";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./App.scss";
 
-import { Header } from "./components";
-
-class App extends Component {
-  public render(): ReactElement {
-    return (
-      <div className="app">
-        <Header title="Hello World" />
-      </div>
-    );
-  }
-}
+const App = (): ReactElement => {
+  return (
+    <div className="app">
+      <Header />
+      <BrowserRouter>
+        <div className="app-wrapper-content">
+          <Switch>
+            <Route exact path="/" component={StartMenu} />
+            <Route exact path="/game" component={Game} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+      <Footer />
+    </div>
+  );
+};
 
 export default App;

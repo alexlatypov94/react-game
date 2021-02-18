@@ -1,0 +1,13 @@
+.game {
+    display: flex;
+    justify-content: center;
+
+    canvas {
+        border: 3px solid #000;
+        border-radius: 0.5rem;
+        background: url(../../../public/assets/img/canvas-bg.jpg);
+        background-size: cover;
+        width: 80vw;
+        height: 70vh;
+    }
+}
