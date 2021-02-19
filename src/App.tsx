@@ -1,22 +1,24 @@
 import React, { ReactElement } from "react";
-import { Header, Footer, StartMenu, Game } from "./components";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Header, Footer, Game, AboutGame, Score, Settings } from "./components";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./App.scss";
 
 const App = (): ReactElement => {
   return (
-    <div className="app">
-      <Header />
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="app">
+        <Header />
         <div className="app-wrapper-content">
           <Switch>
-            <Route exact path="/" component={StartMenu} />
-            <Route exact path="/game" component={Game} />
+            <Route exact path="/" component={AboutGame} />
+            <Route path="/game" component={Game} />
+            <Route path="/score" component={Score} />
+            <Route path="/settings" component={Settings} />
           </Switch>
         </div>
-      </BrowserRouter>
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 };
 

@@ -1,4 +1,6 @@
 export * from "./Header";
-export * from "./StartMenu";
 export * from "./Game";
 export * from "./Footer";
+export * from "./AboutGame";
+export * from "./Score";
+export * from "./Settings";

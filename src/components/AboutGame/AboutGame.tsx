@@ -1,13 +1,10 @@
 import React, { ReactElement } from "react";
+import "./AboutGame.scss";
 
 export const AboutGame = (): ReactElement => {
   return (
     <div className="about-game-wrapper">
-      <img src="" alt="" />
-      <div className="about-game-description">
-        <h1>Arcanoid</h1>
-        <p></p>
-      </div>
+      <h1>Arcanoid</h1>
     </div>
   );
 };
