@@ -10,6 +10,7 @@ const App = (): ReactElement => {
         <Header />
         <div className="app-wrapper-content">
           <Switch>
+            {/* <Redirect exact to="/" /> */}
             <Route exact path="/" component={AboutGame} />
             <Route path="/game" component={Game} />
             <Route path="/score" component={Score} />
