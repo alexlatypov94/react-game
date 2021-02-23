@@ -1,9 +1,7 @@
 export const BALL: any = {
-  x: 20,
-  y: 200,
   dx: 5,
   dy: 5,
-  radius: 10,
+  radius: 12,
   speed: 10
 };
 
@@ -19,12 +17,20 @@ export const PLAYER: any = {
   name: "Alex",
   lives: 5,
   score: 0,
-  level: 1
+  level: 1,
+  changeLevel: true
 };
 
 export const PADDLE: any = {
   width: 100,
   height: 20,
   x: 100,
-  color: "orange"
+  color: "orange",
+  speed: 15
+};
+
+export const SPRITES: any = {
+  paddle: undefined,
+  ball: undefined,
+  brick: undefined
 };

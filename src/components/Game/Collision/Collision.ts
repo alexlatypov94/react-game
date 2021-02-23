@@ -1,9 +1,11 @@
-import { isValidElement } from "react";
-
-export function collision(ball: any, canvas: any, player: any): void {
+export function collision(ball: any, canvas: any, player: any, paddle: any): void {
   if (ball.y + ball.radius >= canvas.height) {
     player.lives--;
-    ball.dy *= -1;
+    ball.x = paddle.x;
+    ball.y = paddle.y - 30;
+    ball.dx = 6 * (Math.random() * 2 - 1);
+    ball.dy = -6;
+    return;
   }
 
   if (ball.y - ball.radius <= 0) {
