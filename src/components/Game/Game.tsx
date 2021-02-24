@@ -14,6 +14,8 @@ let bricks: Array<any> = [];
 export const Game = (): ReactElement => {
   // eslint-disable-next-line no-null/no-null
   const canvasRef: any = useRef(null);
+  // eslint-disable-next-line no-null/no-null
+  const wrapperCanvas: any = useRef(null);
   let start: boolean = false;
   let moveRight: boolean = false;
   let moveLeft: boolean = false;
@@ -41,6 +43,12 @@ export const Game = (): ReactElement => {
     if (e.keyCode === 37) {
       moveLeft = false;
     }
+  }
+
+  function handlerClick(e: any) {
+    const isCanvas: boolean = e.type === "blur" ? false : true;
+    const wrapper: any = wrapperCanvas.current;
+    wrapper.classList.toggle("canvas-wrapper-active", isCanvas);
   }
 
   useEffect(() => {
@@ -130,13 +138,24 @@ export const Game = (): ReactElement => {
     render();
   }, []);
   return (
-    <div role="button" tabIndex={0} className="canvas-wrapper" onKeyUp={checkDontMove}>
-      <canvas
-        id="canvas"
-        width={window.innerWidth < 900 ? window.innerWidth - 20 : window.innerWidth - (window.innerWidth * 20) / 100}
-        ref={canvasRef}
-        height="500"
-      ></canvas>
+    <div className="wrapper-game-field">
+      <div
+        role="button"
+        tabIndex={0}
+        className="canvas-wrapper"
+        ref={wrapperCanvas}
+        onKeyUp={checkDontMove}
+        onBlur={handlerClick}
+        onClick={handlerClick}
+      >
+        <canvas
+          id="canvas"
+          width={window.innerWidth < 900 ? window.innerWidth - 20 : window.innerWidth - (window.innerWidth * 20) / 100}
+          ref={canvasRef}
+          height="500"
+        ></canvas>
+      </div>
+      <button className="autoplay">Click to autoplay</button>
     </div>
   );
 };

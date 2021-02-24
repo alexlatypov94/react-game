@@ -4,3 +4,32 @@ canvas {
   background: url(../../../public/assets/img/canvas-bg.jpg);
   background-size: cover;
 }
+.wrapper-game-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .autoplay {
+    bottom: -10%;
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(123, 252, 2);
+    background: rgb(55, 0, 255);
+    border: none;
+    padding: 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    outline: none;
+    &:hover {
+      color: rgb(55, 0, 255);
+      background: rgb(123, 252, 2);
+    }
+  }
+  .canvas-wrapper {
+    outline: none;
+  }
+}
+
+.canvas-wrapper-active {
+  box-shadow: 0px 0px 15px 15px rgba(212, 225, 234, 0.3);
+}

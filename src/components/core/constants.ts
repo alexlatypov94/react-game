@@ -34,3 +34,10 @@ export const SPRITES: any = {
   ball: undefined,
   brick: undefined
 };
+
+export const SOUND_MUSIC_IMG: any = {
+  musicOn: "../../../public/assets/img/music-player.svg",
+  musicOff: "../../../public/assets/img/music-off.svg",
+  soundOn: "../../../public/assets/img/volume.svg",
+  soundOff: "../../../public/assets/img/no-sound.svg"
+};

@@ -2,7 +2,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0 0;
+  padding: 20px 20px 0;
+  width: 1024px;
+  margin: 0 auto;
 
   .header-title img {
     width: 40px;
@@ -14,6 +16,12 @@ header {
       font-size: 2rem;
       color: #fff;
       text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 0.2rem;
+
+      &:hover {
+        color: rgb(207, 61, 61);
+      }
     }
   }
 }

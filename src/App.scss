@@ -1,23 +1,23 @@
 #root {
-    display: flex;
-    align-items: center;
-    height: 100vh;
-    background: url(../public/assets/img/bg-fon.jpg) #555555cb;
-    background-size: cover;
-    background-blend-mode: multiply;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  background: url(../public/assets/img/bg-fon.jpg) #555555cb;
+  background-size: cover;
+  background-blend-mode: multiply;
 }
 
 .app {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 1280px;
-    height: 100vh;
-    width: 100%;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 1280px;
+  height: 100vh;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .app-wrapper-content {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
