@@ -1,5 +1,6 @@
-import React, { ReactElement, useEffect, useRef } from "react";
+import React, { ReactElement, useContext, useEffect, useRef } from "react";
 import { BALL, BRICK, PADDLE, PLAYER } from "../core";
+import { LangContext } from "../util";
 import { allBroken } from "./AllBroken";
 import { Ball, ballMovement } from "./BallMovement";
 import { brick } from "./Brick";
@@ -19,6 +20,8 @@ export const Game = (): ReactElement => {
   let start: boolean = false;
   let moveRight: boolean = false;
   let moveLeft: boolean = false;
+
+  const lang: any = useContext(LangContext);
 
   function checkMovePaddle(e: any) {
     if (e.keyCode === 39) {
@@ -71,7 +74,7 @@ export const Game = (): ReactElement => {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      statistic(ctx, PLAYER, canvas);
+      statistic(ctx, PLAYER, canvas, lang);
 
       bricks.map((brick) => {
         return brick.draw(ctx);
@@ -155,7 +158,7 @@ export const Game = (): ReactElement => {
           height="500"
         ></canvas>
       </div>
-      <button className="autoplay">Click to autoplay</button>
+      <button className="autoplay">{lang === "en" ? "Click to autoplay" : "Нажмите для автоигры"}</button>
     </div>
   );
 };

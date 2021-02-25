@@ -5,3 +5,4 @@ export * from "./AboutGame";
 export * from "./Score";
 export * from "./Settings";
 export * from "./core";
+export * from "./util";

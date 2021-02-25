@@ -1,7 +1,7 @@
-export function statistic(ctx: any, player: any, canvas: any): void {
+export function statistic(ctx: any, player: any, canvas: any, lang: string): void {
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText(`Name: ${player.name}`, 20, 30);
+  ctx.fillText(`${lang === "en" ? "Name" : "Имя"}: ${player.name}`, 20, 30);
 
   ctx.font = "20px Arial";
   ctx.fillStyle = "red";
@@ -13,5 +13,5 @@ export function statistic(ctx: any, player: any, canvas: any): void {
 
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText(`Score: ${player.score}`, canvas.width - 140, 30);
+  ctx.fillText(`${lang === "en" ? "Score" : "Счет"}: ${player.score}`, canvas.width - 140, 30);
 }
