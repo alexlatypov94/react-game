@@ -1,12 +1,15 @@
 .about-game-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   height: 100%;
+  width: 60%;
+
+  .hot-key-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 80% 20%;
+  }
   span {
     color: #fff;
     font-size: 2rem;
-    text-align: center;
     font-weight: bold;
     margin: 10px;
   }
@@ -14,15 +17,25 @@
   .about-game-gifs {
     width: 40rem;
     margin: 0;
-    
+  }
+
+  .hot-key {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hot-key-description {
+    display: flex;
+    align-items: center;
   }
 
   .control-btn {
     border: 2px solid red;
-    padding: 0.2rem;
+    padding: 0.5rem;
+    text-align: center;
   }
 
   .enter {
-      padding: 0.2rem 1rem;
+    padding: 0.2rem 1rem;
   }
 }

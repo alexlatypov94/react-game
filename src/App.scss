@@ -1,7 +1,7 @@
 #root {
   display: flex;
   align-items: center;
-  height: 100vh;
+  height: 99vh;
   background: url(../public/assets/img/bg-fon.jpg) #555555cb;
   background-size: cover;
   background-blend-mode: multiply;
@@ -12,7 +12,7 @@
   flex-direction: column;
   justify-content: space-between;
   max-width: 1280px;
-  height: 100vh;
+  height: 99vh;
   width: 100%;
   margin: 0 auto;
 }

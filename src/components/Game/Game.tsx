@@ -221,15 +221,17 @@ export const Game = (props: any): ReactElement => {
           id="canvas"
           width={window.innerWidth < 900 ? window.innerWidth - 20 : window.innerWidth - (window.innerWidth * 20) / 100}
           ref={canvasRef}
-          height="500"
+          height={window.innerHeight / 1.7}
         ></canvas>
       </div>
-      <button className="autoplay" onClick={handleAutoplay} onKeyPress={handleAutoplay}>
-        {lang === "en" ? "Click to autoplay" : "Нажмите для автоигры"}
-      </button>
-      <button className="newGame" onClick={handleNewGame}>
-        {lang === "en" ? "New game" : "Новая игра"}
-      </button>
+      <div className="canvas-btn">
+        <button className="autoplay" onClick={handleAutoplay} onKeyPress={handleAutoplay}>
+          {lang === "en" ? "Click to autoplay" : "Нажмите для автоигры"}
+        </button>
+        <button className="newGame" onClick={handleNewGame}>
+          {lang === "en" ? "New game" : "Новая игра"}
+        </button>
+      </div>
     </div>
   );
 };

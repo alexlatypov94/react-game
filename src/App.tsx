@@ -13,8 +13,10 @@ const App = (): ReactElement => {
   const [colorBrick, setColorBrick] = useState(BRICK.colors);
   const [colorChange, setColorChange] = useState(false);
 
-  MAIN_MUSIC.play();
-  MAIN_MUSIC.autoplay = true;
+  window.addEventListener("mousemove", () => {
+    MAIN_MUSIC.play();
+  });
+
   MAIN_MUSIC.loop = true;
 
   const handleLang = (e: any) => {
@@ -60,11 +62,10 @@ const App = (): ReactElement => {
 
   return (
     <LangContext.Provider value={languarges[lang]}>
-      <BrowserRouter>
-        <div className="app">
+      <div className="app">
+        <BrowserRouter>
           <Header />
           <div className="app-wrapper-content">
-            {/* <Switch> */}
             <Redirect exact to="/" />
             <Route exact path="/" component={AboutGame} />
             <Route path="/game" render={() => <Game colorChange={colorChange} newColor={colorBrick} />} />
@@ -84,11 +85,10 @@ const App = (): ReactElement => {
                 />
               )}
             />
-            {/* </Switch> */}
           </div>
-          <Footer />
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+        <Footer />
+      </div>
     </LangContext.Provider>
   );
 };
