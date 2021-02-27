@@ -69,43 +69,104 @@
 
   .brick-color-settings {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     margin-top: 1rem;
     width: 100%;
-    .brick-color {
-      width: 15%;
-      height: 2rem;
-      border: none;
-      cursor: pointer;
-      outline: none;
+
+    h1 {
+      color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1.5rem 0;
     }
 
-    .blue {
-      background: #0019fc;
-    }
+    .brick-color-wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      .brick-color {
+        width: 15%;
+        height: 2rem;
+        border: none;
+        cursor: pointer;
+        outline: none;
+      }
 
-    .red {
-      background: #fc0000;
-    }
+      .blue {
+        background: #0019fc;
+      }
 
-    .green {
-      background: #08fc00;
-    }
+      .red {
+        background: #fc0000;
+      }
 
-    .purple {
-      background: #e700fc;
-    }
+      .green {
+        background: #08fc00;
+      }
 
-    .yellow {
-      background: #f8fc00;
-    }
+      .purple {
+        background: #e700fc;
+      }
 
-    .orange {
-      background: #fc6500;
+      .yellow {
+        background: #f8fc00;
+      }
+
+      .orange {
+        background: #fc6500;
+      }
     }
   }
 
-  
+  .ball-speed-wrapper {
+    margin-top: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      color: #fff;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .ball-speed-btns {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      .ball-speed {
+        width: 25%;
+        height: 3rem;
+        color: #fff;
+        border: none;
+        border-radius: 1.5rem;
+        outline: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        font-weight: bold;
+        opacity: 0.7;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+      .low {
+        background: rgba(238, 255, 2, 0.76);
+      }
+
+      .medium {
+        background: #ff8801d3;
+      }
+
+      .high {
+        background: #fc0000b6;
+      }
+    }
+  }
 }
 
 input[type="range"] {

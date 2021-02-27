@@ -1,7 +1,8 @@
 import React, { ReactElement, useContext, useEffect, useRef } from "react";
-import { BALL, BRICK, PADDLE, PLAYER } from "../core";
+import { BALL, BRICK, PADDLE, PLAYER, SOUND } from "../core";
 import { LangContext } from "../util";
 import { allBroken } from "./AllBroken";
+import { AutoPlay } from "./AutoPlay";
 import { Ball, ballMovement } from "./BallMovement";
 import { brick } from "./Brick";
 import { brickCollision, collision, paddleCollision } from "./Collision";
@@ -12,7 +13,7 @@ import { statistic } from "./Statistic";
 
 let bricks: Array<any> = [];
 
-export const Game = (): ReactElement => {
+export const Game = (props: any): ReactElement => {
   // eslint-disable-next-line no-null/no-null
   const canvasRef: any = useRef(null);
   // eslint-disable-next-line no-null/no-null
@@ -20,43 +21,83 @@ export const Game = (): ReactElement => {
   let start: boolean = false;
   let moveRight: boolean = false;
   let moveLeft: boolean = false;
+  let isChangeColor: boolean = props.colorChange ? true : false;
+  let autoplay: boolean = false;
+  let autoPlayReset: boolean = false;
+  let isUsageKeyboard: boolean = false;
 
   const lang: any = useContext(LangContext);
 
-  function checkMovePaddle(e: any) {
-    if (e.keyCode === 39) {
+  const handleAutoplay = (e: any) => {
+    if (e.type === "click" || (e.type === "keypress" && e.keyCode === 97)) {
+      start = true;
+      autoplay = true;
+      autoPlayReset = true;
+    }
+  };
+
+  const checkMovePaddle = (e: any) => {
+    if (e.keyCode === 39 && !autoplay && isUsageKeyboard) {
       moveRight = true;
     }
 
-    if (e.keyCode === 37) {
+    if (e.keyCode === 37 && !autoplay && isUsageKeyboard) {
       moveLeft = true;
     }
 
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && !autoplay && isUsageKeyboard) {
       start = true;
       PLAYER.changeLevel = true;
     }
-  }
+  };
 
-  function checkDontMove(e: any) {
-    if (e.keyCode === 39) {
+  const checkDontMove = (e: any) => {
+    if (e.keyCode === 39 && !autoplay) {
       moveRight = false;
     }
 
-    if (e.keyCode === 37) {
+    if (e.keyCode === 37 && !autoplay) {
       moveLeft = false;
     }
-  }
+  };
 
-  function handlerClick(e: any) {
+  const handlerClick = (e: any) => {
     const isCanvas: boolean = e.type === "blur" ? false : true;
     const wrapper: any = wrapperCanvas.current;
     wrapper.classList.toggle("canvas-wrapper-active", isCanvas);
-  }
+
+    if (e.type === "focus") {
+      isUsageKeyboard = true;
+    }
+
+    if (e.type === "blur") {
+      isUsageKeyboard = false;
+    }
+  };
+
+  const handleNewGame = (e: any) => {
+    if (e.type === "click" || (e.type === "keypress" && e.keyCode === 32)) {
+      bricks = [];
+      start = false;
+      PLAYER.level = 1;
+      PLAYER.lives = 5;
+      PLAYER.score = 0;
+      BRICK.y = 50;
+      autoplay = false;
+      autoPlayReset = false;
+    }
+    // console.log(e);
+  };
 
   useEffect(() => {
     window.addEventListener("keydown", checkMovePaddle);
-    return window.removeEventListener("keydown", checkDontMove);
+    window.addEventListener("keypress", handleAutoplay);
+    window.addEventListener("keypress", handleNewGame);
+    return () => {
+      window.removeEventListener("keydown", checkDontMove);
+      window.removeEventListener("keypress", handleAutoplay);
+      // window.removeEventListener("keypress", handleNewGame);
+    };
   }, []);
 
   useEffect(() => {
@@ -66,21 +107,43 @@ export const Game = (): ReactElement => {
 
       PADDLE.y = canvas.height - 30;
 
+      if (autoPlayReset) {
+        PLAYER.lives = 5;
+        PLAYER.level = 1;
+        PLAYER.score = 0;
+        resetBall(BALL, canvas, PADDLE);
+        bricks.length = 0;
+        BRICK.y = 50;
+        start = false;
+        autoPlayReset = false;
+      }
+
       const newBrickSet: any = brick(PLAYER.level, bricks, canvas, BRICK);
 
       if (newBrickSet && newBrickSet.length > 0) {
         bricks = newBrickSet;
       }
 
+      if (isChangeColor) {
+        bricks.map((el) => {
+          el.colors = props.newColor;
+        });
+
+        isChangeColor = false;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      statistic(ctx, PLAYER, canvas, lang);
+      statistic(ctx, PLAYER, canvas, lang, autoplay);
 
       bricks.map((brick) => {
         return brick.draw(ctx);
       });
 
-      if (start && PLAYER.changeLevel) {
+      if (autoplay) {
+        ballMovement(ctx, BALL);
+        AutoPlay(canvas);
+      } else if (start && PLAYER.changeLevel && !autoplay) {
         ballMovement(ctx, BALL);
       } else {
         const ballNull: any = new Ball(PADDLE.x + PADDLE.width / 2, canvas.height - 40, BALL.radius);
@@ -119,7 +182,8 @@ export const Game = (): ReactElement => {
             BALL.dy *= -1;
             bricks[i].broke = true;
           }
-
+          SOUND.currentTime = 0;
+          SOUND.play();
           PLAYER.score += 10;
         }
       }
@@ -140,6 +204,7 @@ export const Game = (): ReactElement => {
     };
     render();
   }, []);
+
   return (
     <div className="wrapper-game-field">
       <div
@@ -148,6 +213,7 @@ export const Game = (): ReactElement => {
         className="canvas-wrapper"
         ref={wrapperCanvas}
         onKeyUp={checkDontMove}
+        onFocus={handlerClick}
         onBlur={handlerClick}
         onClick={handlerClick}
       >
@@ -158,7 +224,12 @@ export const Game = (): ReactElement => {
           height="500"
         ></canvas>
       </div>
-      <button className="autoplay">{lang === "en" ? "Click to autoplay" : "Нажмите для автоигры"}</button>
+      <button className="autoplay" onClick={handleAutoplay} onKeyPress={handleAutoplay}>
+        {lang === "en" ? "Click to autoplay" : "Нажмите для автоигры"}
+      </button>
+      <button className="newGame" onClick={handleNewGame}>
+        {lang === "en" ? "New game" : "Новая игра"}
+      </button>
     </div>
   );
 };

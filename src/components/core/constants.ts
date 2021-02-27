@@ -10,7 +10,7 @@ export const BRICK: any = {
   y: 50,
   height: 20,
   density: 2,
-  colors: ["blue", "lightblue"]
+  colors: "blue"
 };
 
 export const PLAYER: any = {
@@ -42,14 +42,7 @@ export const SOUND_MUSIC_IMG: any = {
   soundOff: "../../../public/assets/img/no-sound.svg"
 };
 
-export const MUSIC: any = {
-  snoop: {
-    ref: "../../../public/assets/audio/snoop.mp3",
-    volume: 0.2
-  },
+export const MAIN_MUSIC: any = new Audio("../../../public/assets/audio/snoop.mp3");
+MAIN_MUSIC.volume = 1;
 
-  brick: {
-    ref: "../../../public/assets/audio/brick.mp3",
-    volume: 0.5
-  }
-};
+export const SOUND: any = new Audio("../../../public/assets/audio/brick.mp3");

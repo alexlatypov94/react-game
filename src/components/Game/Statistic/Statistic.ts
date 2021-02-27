@@ -1,7 +1,7 @@
-export function statistic(ctx: any, player: any, canvas: any, lang: string): void {
+export function statistic(ctx: any, player: any, canvas: any, lang: string, autoplay: boolean): void {
   ctx.font = "20px Arial";
   ctx.fillStyle = "white";
-  ctx.fillText(`${lang === "en" ? "Name" : "Имя"}: ${player.name}`, 20, 30);
+  ctx.fillText(`${lang === "en" ? "Name" : "Имя"}: ${autoplay ? "CPU" : player.name}`, 20, 30);
 
   ctx.font = "20px Arial";
   ctx.fillStyle = "red";

@@ -1,3 +1,5 @@
+import { PLAYER } from "../../core";
+
 export function brick(level: any, bricks: any, canvas: any, brick: any): Array<any> {
   brick.width = canvas.width / 10 - 5;
   const newbricks: Array<any> = [];
@@ -18,6 +20,7 @@ export function brick(level: any, bricks: any, canvas: any, brick: any): Array<a
       brick.y += brick.height + 10;
     }
   }
+
   return newbricks;
 }
 
@@ -34,7 +37,7 @@ class Brick {
   public draw(ctx: any) {
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = this.broke ? "rgba(19, 73, 89, 0)" : this.colors[1];
+    ctx.fillStyle = this.broke ? "rgba(19, 73, 89, 0)" : this.colors;
 
     ctx.lineWidth = 5;
     ctx.strokeStyle = this.broke ? "rgba(19, 73, 89, 0)" : "transparent";

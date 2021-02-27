@@ -13,5 +13,6 @@ export function allBroken(bricks: any, player: any, canvas: any, ball: any, bric
     player.changeLevel = false;
     resetBall(ball, canvas, paddle);
     brick.y = 50;
+   
   }
 }

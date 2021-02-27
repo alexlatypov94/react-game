@@ -1,64 +1,53 @@
 import React, { ReactElement, useContext, useState } from "react";
-import { SOUND_MUSIC_IMG } from "../core";
+import { BALL, SOUND_MUSIC_IMG } from "../core";
 import { LangContext } from "../util";
 import "./Settings.scss";
 
 export const Settings = (props: any): ReactElement => {
-  const [valueMusic, setValueMusic] = useState(50);
-  const [valueSound, setValueSound] = useState(50);
-  const [checkMusicBtn, setCheckMusicBtn] = useState(false);
-  const [checkSoundBtn, setCheckSoundBtn] = useState(false);
-
   const lang: any = useContext(LangContext);
 
-  function handleValue(e: any): void {
-    if (e.target.id === "music") {
-      setValueMusic(e.target.value);
-    } else {
-      setValueSound(e.target.value);
-    }
-  }
+  const handleValue = (e: any) => {
+    props.handleChange(e);
+  };
 
-  function handleButton(e: any): void {
-    if (e.target.id === "MusicBtn") {
-      setCheckMusicBtn(!checkMusicBtn);
-      props.onHandleMusic(e);
-    } else {
-      setCheckSoundBtn(!checkSoundBtn);
-      props.onHandleMusic(e);
-    }
-  }
+  const handleButton = (e: any) => {
+    props.onHandleMusic(e);
+  };
 
-  function handleLang(e: any) {
+  const handleLang = (e: any) => {
     props.onLangChange(e);
-  }
+  };
 
-  const handleBtnColor = (e) => {
+  const handleBtnColor = (e: any) => {
     props.onChangeBrickColor(e);
+  };
+
+  const handleBallSpeed = (e: any) => {
+    BALL.speed = e.target.value;
   };
 
   return (
     <div className="settings-wrapper">
       <div className="setting-music-wrapper">
         <label htmlFor="music">{lang === "en" ? "Music" : "Музыка"}</label>
-        <input type="range" min="1" max="100" value={valueMusic} id="music" onChange={handleValue} />
+        <input type="range" min="0" max="100" value={props.valueMusic} id="music" onChange={handleValue} />
       </div>
       <div className="setting-music-wrapper">
         <label htmlFor="Sound">{lang === "en" ? "Sound" : "Звуки"}</label>
-        <input type="range" min="1" max="100" value={valueSound} id="Sound" onChange={handleValue} />
+        <input type="range" min="0" max="100" value={props.valueSound} id="Sound" onChange={handleValue} />
       </div>
       <div className="setting-music-wrapper music-checkbox">
         <span>{lang === "en" ? "Music on" : "Музыка вкл"}</span>
-        <button className="btn-config btn-music" id="MusicBtn" onClick={(e) => handleButton(e)}>
+        <button className="btn-config btn-music" id="MusicBtn" onClick={handleButton}>
           <object
-            data={checkMusicBtn === false ? SOUND_MUSIC_IMG.musicOn : SOUND_MUSIC_IMG.musicOff}
+            data={props.music === false ? SOUND_MUSIC_IMG.musicOn : SOUND_MUSIC_IMG.musicOff}
             type="image/svg+xml"
           ></object>
         </button>
         <span>{lang === "en" ? "Sounds on" : "Звуки вкл"}</span>
         <button className="btn-config btn-sound" id="SoundBtn" onClick={handleButton}>
           <object
-            data={checkSoundBtn === false ? SOUND_MUSIC_IMG.soundOn : SOUND_MUSIC_IMG.soundOff}
+            data={props.sound === false ? SOUND_MUSIC_IMG.soundOn : SOUND_MUSIC_IMG.soundOff}
             type="image/svg+xml"
           ></object>
         </button>
@@ -82,12 +71,29 @@ export const Settings = (props: any): ReactElement => {
         </form>
       </div>
       <div className="brick-color-settings">
-        <button className="brick-color blue" value="#0019fc" onClick={handleBtnColor}></button>
-        <button className="brick-color red" value="#fc0000" onClick={handleBtnColor}></button>
-        <button className="brick-color green" value="#08fc00" onClick={handleBtnColor}></button>
-        <button className="brick-color yellow" value="#f8fc00" onClick={handleBtnColor}></button>
-        <button className="brick-color purple" value="#e700fc" onClick={handleBtnColor}></button>
-        <button className="brick-color orange" value="#fc6500" onClick={handleBtnColor}></button>
+        <h1>{lang === "en" ? "Bricks color" : "Цвет кирпича"}</h1>
+        <div className="brick-color-wrapper">
+          <button className="brick-color blue" value="#0019fc" onClick={handleBtnColor}></button>
+          <button className="brick-color red" value="#fc0000" onClick={handleBtnColor}></button>
+          <button className="brick-color green" value="#08fc00" onClick={handleBtnColor}></button>
+          <button className="brick-color yellow" value="#f8fc00" onClick={handleBtnColor}></button>
+          <button className="brick-color purple" value="#e700fc" onClick={handleBtnColor}></button>
+          <button className="brick-color orange" value="#fc6500" onClick={handleBtnColor}></button>
+        </div>
+      </div>
+      <div className="ball-speed-wrapper">
+        <h1>{lang === "en" ? "Ball speed" : "Скорость шара"}</h1>
+        <div className="ball-speed-btns">
+          <button className="ball-speed low" value="5" onClick={handleBallSpeed}>
+            {lang === "en" ? "Low speed" : "Низкая скорость"}
+          </button>
+          <button className="ball-speed medium" value="10" onClick={handleBallSpeed}>
+            {lang === "en" ? "Medium speed" : "Средняя скорость"}
+          </button>
+          <button className="ball-speed high" value="15" onClick={handleBallSpeed}>
+            {lang === "en" ? "High speed" : "Высокая скорость"}
+          </button>
+        </div>
       </div>
     </div>
   );
