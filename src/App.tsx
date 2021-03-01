@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
-import { Header, Footer, Game, AboutGame, Score, Settings, MAIN_MUSIC, SOUND, BRICK, PLAYER } from "./components";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Header, Footer, Game, AboutGame, Score, Settings, MAIN_MUSIC, SOUND, BRICK } from "./components";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { LangContext, languarges } from "./components/index";
 import "./App.scss";
 
@@ -12,9 +12,10 @@ const App = (): ReactElement => {
   const [valueSound, setValueSound] = useState(50);
   const [colorBrick, setColorBrick] = useState(BRICK.colors);
   const [colorChange, setColorChange] = useState(false);
+  const [autorization, setAtorization] = useState(false);
 
   window.addEventListener("mousemove", () => {
-    MAIN_MUSIC.play();
+    // MAIN_MUSIC.play();
   });
 
   MAIN_MUSIC.loop = true;
@@ -60,36 +61,68 @@ const App = (): ReactElement => {
     setColorChange(true);
   };
 
-  return (
-    <LangContext.Provider value={languarges[lang]}>
-      <div className="app">
-        <BrowserRouter>
+  if (autorization) {
+    return (
+      <LangContext.Provider value={languarges[lang]}>
+        {/* <BrowserRouter> */}
+        <div className="app">
           <Header />
           <div className="app-wrapper-content">
-            <Redirect exact to="/" />
-            <Route exact path="/" component={AboutGame} />
-            <Route path="/game" render={() => <Game colorChange={colorChange} newColor={colorBrick} />} />
-            <Route path="/score" component={Score} />
-            <Route
-              path="/settings"
-              render={() => (
-                <Settings
-                  onLangChange={handleLang}
-                  onHandleMusic={handleMusic}
-                  sound={soundVolume}
-                  music={musicVolume}
-                  valueSound={valueSound}
-                  valueMusic={valueMusic}
-                  handleChange={handleMusicChange}
-                  onChangeBrickColor={handleChangeColor}
-                />
-              )}
-            />
+            <Redirect exact to="/about-game" />
+            <Switch>
+              <Route exact path="/about-game" component={AboutGame} />
+              <Route path="/game" render={() => <Game colorChange={colorChange} newColor={colorBrick} />} />
+              <Route path="/score" component={Score} />
+              <Route
+                path="/settings"
+                render={() => (
+                  <Settings
+                    onLangChange={handleLang}
+                    onHandleMusic={handleMusic}
+                    sound={soundVolume}
+                    music={musicVolume}
+                    valueSound={valueSound}
+                    valueMusic={valueMusic}
+                    handleChange={handleMusicChange}
+                    onChangeBrickColor={handleChangeColor}
+                  />
+                )}
+              />
+            </Switch>
           </div>
-        </BrowserRouter>
-        <Footer />
-      </div>
-    </LangContext.Provider>
+          <Footer />
+        </div>
+        {/* </BrowserRouter> */}
+      </LangContext.Provider>
+    );
+  }
+
+  return (
+    <div className="registration">
+      <form action="">
+        <h1 className="reg-title">Registration</h1>
+        <div className="reg-inp-wrapper">
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Email" />
+        </div>
+        <div className="reg-inp-wrapper">
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Password" />
+        </div>
+        <div className="btn-entrance">
+          <button className="login" type="submit">
+            Log in
+          </button>
+          <button className="signup" type="submit">
+            Sign up
+          </button>
+        </div>
+
+        <a href="#" onClick={() => setAtorization(true)}>
+          Continue without registration
+        </a>
+      </form>
+    </div>
   );
 };
 

@@ -20,7 +20,7 @@ export const Header = (): ReactElement => {
         <NavLink to="/score">{lang === "en" ? "Statistic" : "Статистика"}</NavLink>
       </div>
       <div className="nav-item">
-        <NavLink to="/">{lang === "en" ? "About Game" : "Об игре"}</NavLink>
+        <NavLink to="/about-game">{lang === "en" ? "About Game" : "Об игре"}</NavLink>
       </div>
     </header>
   );
