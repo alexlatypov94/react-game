@@ -6,3 +6,4 @@ export * from "./Score";
 export * from "./Settings";
 export * from "./core";
 export * from "./util";
+export * from "./AuthPage";

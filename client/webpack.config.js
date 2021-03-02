@@ -61,8 +61,11 @@ module.exports = {
   },
   optimization: optimization(),
   devServer: {
-    historyApiFallback: true,
-    port: 3000
+    port: 3000,
+    proxy: {
+      "*": "http://[::1]:5000"
+    },
+    historyApiFallback: true
   },
   devtool: isDevelopment ? "source-map" : "none",
   plugins: [
@@ -81,7 +84,10 @@ module.exports = {
           to: path.resolve(__dirname, "dist")
         },
         { from: path.resolve(__dirname, "public/assets/img"), to: path.resolve(__dirname, "dist/public/assets/img") },
-        { from: path.resolve(__dirname, "public/assets/audio"), to: path.resolve(__dirname, "dist/public/assets/audio") }
+        {
+          from: path.resolve(__dirname, "public/assets/audio"),
+          to: path.resolve(__dirname, "dist/public/assets/audio")
+        }
       ]
     }),
     new MiniCssExtractPlugin({
