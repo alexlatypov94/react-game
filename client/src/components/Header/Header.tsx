@@ -1,10 +1,18 @@
 import React, { ReactElement, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+import { AuthContext } from "../../context";
 import { LangContext } from "../util";
 import "./Header.scss";
 
 export const Header = (): ReactElement => {
+  const history: any = useHistory();
   const lang: any = useContext(LangContext);
+  const auth: any = useContext(AuthContext);
+  const logoutHandler = (event: any) => {
+    event.preventDefault();
+    auth.logout();
+    history.push("/");
+  };
   return (
     <header>
       <div className="nav-item">
@@ -21,6 +29,11 @@ export const Header = (): ReactElement => {
       </div>
       <div className="nav-item">
         <NavLink to="/about-game">{lang === "en" ? "About Game" : "Об игре"}</NavLink>
+      </div>
+      <div className="nav-item">
+        <a className="nav-item-logout" href="/" onClick={logoutHandler}>
+          {lang === "en" ? "Log out" : "Выйти"}
+        </a>
       </div>
     </header>
   );

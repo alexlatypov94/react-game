@@ -13,6 +13,8 @@ export const useRoutes = (isAutenticated: boolean): ReactElement => {
   const [colorBrick, setColorBrick] = useState(BRICK.colors);
   const [colorChange, setColorChange] = useState(false);
 
+  const [missAuth, setMissAuth] = useState(false);
+
   window.addEventListener("mousemove", () => {
     // MAIN_MUSIC.play();
   });
@@ -60,7 +62,11 @@ export const useRoutes = (isAutenticated: boolean): ReactElement => {
     setColorChange(true);
   };
 
-  if (isAutenticated) {
+  const handlerMissAuth = (e) => {
+    setMissAuth(true);
+  };
+
+  if (isAutenticated || missAuth) {
     return (
       <LangContext.Provider value={languarges[lang]}>
         <div className="app">
@@ -97,7 +103,7 @@ export const useRoutes = (isAutenticated: boolean): ReactElement => {
   return (
     <Switch>
       <Route exact path="/">
-        <AuthPage />
+        <AuthPage missFunc={handlerMissAuth} />
       </Route>
       <Redirect exact to="/" />
     </Switch>

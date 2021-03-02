@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef } from "react";
+import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { BALL, BRICK, PADDLE, PLAYER, SOUND } from "../core";
 import { LangContext } from "../util";
 import { allBroken } from "./AllBroken";
@@ -18,6 +18,7 @@ export const Game = (props: any): ReactElement => {
   const canvasRef: any = useRef(null);
   // eslint-disable-next-line no-null/no-null
   const wrapperCanvas: any = useRef(null);
+
   let start: boolean = false;
   let moveRight: boolean = false;
   let moveLeft: boolean = false;
@@ -25,8 +26,22 @@ export const Game = (props: any): ReactElement => {
   let autoplay: boolean = false;
   let autoPlayReset: boolean = false;
   let isUsageKeyboard: boolean = false;
-
+  let local: boolean = true;
+  const saveGame: any = JSON.parse(localStorage.getItem("SaveGame")!);
+  const userName: string = localStorage.getItem("UserName")!;
   const lang: any = useContext(LangContext);
+  let statistics: any = [];
+  if (localStorage.getItem("Statistics") !== null) {
+    statistics = JSON.parse(localStorage.getItem("Statistics")!);
+  }
+
+  PLAYER.name = userName || "User";
+
+  if (saveGame !== null) {
+    PLAYER.lives = saveGame.lives;
+    PLAYER.score = saveGame.score;
+    PLAYER.level = saveGame.level;
+  }
 
   const handleAutoplay = (e: any) => {
     if (e.type === "click" || (e.type === "keypress" && e.keyCode === 97)) {
@@ -68,9 +83,20 @@ export const Game = (props: any): ReactElement => {
 
     if (e.type === "focus") {
       isUsageKeyboard = true;
+      local = false;
+      // console.log(local);
     }
 
     if (e.type === "blur") {
+      localStorage.setItem(
+        "SaveGame",
+        JSON.stringify({
+          bricks: bricks,
+          lives: PLAYER.lives,
+          score: PLAYER.score,
+          level: PLAYER.level
+        })
+      );
       isUsageKeyboard = false;
     }
   };
@@ -96,7 +122,6 @@ export const Game = (props: any): ReactElement => {
     return () => {
       window.removeEventListener("keydown", checkDontMove);
       window.removeEventListener("keypress", handleAutoplay);
-      // window.removeEventListener("keypress", handleNewGame);
     };
   }, []);
 
@@ -119,9 +144,14 @@ export const Game = (props: any): ReactElement => {
       }
 
       const newBrickSet: any = brick(PLAYER.level, bricks, canvas, BRICK);
-
       if (newBrickSet && newBrickSet.length > 0) {
         bricks = newBrickSet;
+      }
+
+      if (saveGame !== null && local && !autoplay) {
+        bricks.map((el, index) => {
+          el.broke = saveGame.bricks[index].broke;
+        });
       }
 
       if (isChangeColor) {
@@ -133,7 +163,6 @@ export const Game = (props: any): ReactElement => {
       }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       statistic(ctx, PLAYER, canvas, lang, autoplay);
 
       bricks.map((brick) => {
@@ -143,6 +172,7 @@ export const Game = (props: any): ReactElement => {
       if (autoplay) {
         ballMovement(ctx, BALL);
         AutoPlay(canvas);
+        localStorage.removeItem("SaveGame");
       } else if (start && PLAYER.changeLevel && !autoplay) {
         ballMovement(ctx, BALL);
       } else {
@@ -159,6 +189,11 @@ export const Game = (props: any): ReactElement => {
       allBroken(bricks, PLAYER, canvas, BALL, BRICK, PADDLE);
 
       if (PLAYER.lives === 0) {
+        statistics.push({
+          name: PLAYER.name,
+          score: PLAYER.score
+        });
+        localStorage.setItem("Statistics", JSON.stringify(statistics));
         PLAYER.lives = 5;
         PLAYER.level = 1;
         PLAYER.score = 0;
@@ -166,6 +201,7 @@ export const Game = (props: any): ReactElement => {
         bricks.length = 0;
         BRICK.y = 50;
         start = false;
+        localStorage.removeItem("SaveGame");
       }
 
       collision(BALL, canvas, PLAYER, PADDLE);

@@ -61,9 +61,12 @@ module.exports = {
   },
   optimization: optimization(),
   devServer: {
-    port: 3000,
+    port: 3001,
     proxy: {
-      "*": "http://[::1]:5000"
+      "/api/auth": {
+        target: "http://localhost:5000"
+        // ws: true
+      }
     },
     historyApiFallback: true
   },

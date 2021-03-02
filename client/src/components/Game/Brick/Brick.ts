@@ -1,5 +1,3 @@
-import { PLAYER } from "../../core";
-
 export function brick(level: any, bricks: any, canvas: any, brick: any): Array<any> {
   brick.width = canvas.width / 10 - 5;
   const newbricks: Array<any> = [];

@@ -1,10 +1,11 @@
 import React, { ReactElement, useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context";
 import { useHttp, useMessage } from "../../hooks";
+import { PLAYER } from "../core";
 // import "./AuthPages.scss";
 
-export const AuthPage = (): ReactElement => {
-  const auth = useContext(AuthContext);
+export const AuthPage = (props): ReactElement => {
+  const auth: any = useContext(AuthContext);
   const message: any = useMessage();
   const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState({
@@ -31,8 +32,13 @@ export const AuthPage = (): ReactElement => {
   const loginHandler = async () => {
     try {
       const data: any = await request("/api/auth/login", "POST", { ...form });
+      localStorage.setItem("UserName", form.email);
       auth.login(data.token, data.userId);
     } catch (e) {}
+  };
+
+  const handlerMissAuth = (e) => {
+    props.missFunc(e);
   };
 
   return (
@@ -56,7 +62,9 @@ export const AuthPage = (): ReactElement => {
           </button>
         </div>
 
-        <a href="#">Continue without registration</a>
+        <a href="#" onClick={handlerMissAuth}>
+          Continue without registration
+        </a>
       </form>
     </div>
   );
