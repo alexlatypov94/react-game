@@ -22,7 +22,7 @@ export const AuthPage = (props: any): ReactElement => {
 
   const registerHandler = async () => {
     try {
-      const data: any = await request("/api/auth/register", "POST", { ...form });
+      const data: any = await request("https://alexlatypov94-reactgame.herokuapp.com/api/auth/register", "POST", { ...form });
       message(data.message);
     } catch (e) {
       return;
@@ -31,7 +31,7 @@ export const AuthPage = (props: any): ReactElement => {
 
   const loginHandler = async () => {
     try {
-      const data: any = await request("/api/auth/login", "POST", { ...form });
+      const data: any = await request("https://alexlatypov94-reactgame.herokuapp.com/api/auth/login", "POST", { ...form });
       localStorage.setItem("UserName", form.email);
       auth.login(data.token, data.userId);
     } catch (e) {

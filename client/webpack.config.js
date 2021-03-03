@@ -64,7 +64,7 @@ module.exports = {
     port: 3001,
     proxy: {
       "/api/auth": {
-        target: "http://localhost:5000"
+        target: "https://alexlatypov94-reactgame.herokuapp.com/"
         // ws: true
       }
     },

@@ -16,7 +16,7 @@ export const useRoutes = (isAutenticated: boolean): ReactElement => {
   const [missAuth, setMissAuth] = useState(false);
 
   window.addEventListener("mousemove", () => {
-    MAIN_MUSIC.play();
+    // MAIN_MUSIC.play();
   });
 
   MAIN_MUSIC.loop = true;
