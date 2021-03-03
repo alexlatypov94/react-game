@@ -1,3 +1,4 @@
+/* eslint-disable no-null/no-null */
 import { useState, useCallback, useEffect } from "react";
 
 const storageName: any = "userData";
@@ -7,7 +8,7 @@ export const useAuth = (): any => {
   const [ready, setReady] = useState(false);
   const [userId, setUserId] = useState(null);
 
-  const login: any = useCallback((jwtToken, id) => {
+  const login: any = useCallback((jwtToken: any, id: any) => {
     setToken(jwtToken);
     setUserId(id);
 
@@ -27,7 +28,7 @@ export const useAuth = (): any => {
   }, []);
 
   useEffect(() => {
-    const data: any = JSON.parse(localStorage.getItem(storageName));
+    const data: any = JSON.parse(localStorage.getItem(storageName)!);
 
     if (data && data.token) {
       login(data.token, data.userId);

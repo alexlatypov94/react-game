@@ -19,11 +19,11 @@
   }
 
   .music-checkbox {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 40%;
+    // flex-direction: row;
+    // align-items: center;
+    // justify-content: center;
+    // flex-wrap: wrap;
+    // width: 40%;
 
     span {
       font-size: 2rem;
@@ -92,6 +92,17 @@
         border: none;
         cursor: pointer;
         outline: none;
+        opacity: 0.7;
+
+        &:hover {
+          opacity: 1;
+          border: 2px solid #fff;
+        }
+      }
+
+      .current-color {
+        opacity: 1;
+        
       }
 
       .blue {
@@ -140,7 +151,7 @@
       width: 100%;
       .ball-speed {
         width: 25%;
-        height: 3rem;
+        padding: 0.5rem;
         color: #fff;
         border: none;
         border-radius: 1.5rem;
@@ -154,8 +165,14 @@
           opacity: 1;
         }
       }
+
+      .ball-speed-active {
+        opacity: 1;
+        border: 2px solid #fff;
+      }
+
       .low {
-        background: rgba(238, 255, 2, 0.76);
+        background: rgba(44, 255, 2, 0.76);
       }
 
       .medium {
@@ -193,4 +210,7 @@ input[type="range"] {
     background: rgb(241, 16, 0);
     cursor: pointer;
   }
+}
+
+@media (max-width: 768px) {
 }

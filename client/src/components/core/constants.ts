@@ -1,3 +1,4 @@
+import { IPaddle, IPlayer, ISound } from "./interfaces";
 export const BALL: any = {
   dx: 5,
   dy: 5,
@@ -10,10 +11,10 @@ export const BRICK: any = {
   y: 50,
   height: 20,
   density: 2,
-  colors: "blue"
+  colors: "#0019fc"
 };
 
-export const PLAYER: any = {
+export const PLAYER: IPlayer = {
   name: "Alex",
   lives: 5,
   score: 0,
@@ -21,7 +22,7 @@ export const PLAYER: any = {
   changeLevel: true
 };
 
-export const PADDLE: any = {
+export const PADDLE: IPaddle = {
   width: 100,
   height: 20,
   x: 100,
@@ -35,7 +36,7 @@ export const SPRITES: any = {
   brick: undefined
 };
 
-export const SOUND_MUSIC_IMG: any = {
+export const SOUND_MUSIC_IMG: ISound = {
   musicOn: "../../../public/assets/img/music-player.svg",
   musicOff: "../../../public/assets/img/music-off.svg",
   soundOn: "../../../public/assets/img/volume.svg",

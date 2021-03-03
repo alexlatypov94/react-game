@@ -1,5 +1,7 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
+/* eslint-disable no-null/no-null */
+import React, { ReactElement, useContext, useEffect, useRef } from "react";
 import { BALL, BRICK, PADDLE, PLAYER, SOUND } from "../core";
+import { BrickSet } from "../core/interfaces";
 import { LangContext } from "../util";
 import { allBroken } from "./AllBroken";
 import { AutoPlay } from "./AutoPlay";
@@ -111,8 +113,8 @@ export const Game = (props: any): ReactElement => {
       BRICK.y = 50;
       autoplay = false;
       autoPlayReset = false;
+      localStorage.removeItem("SaveGame");
     }
-    // console.log(e);
   };
 
   useEffect(() => {
@@ -120,7 +122,7 @@ export const Game = (props: any): ReactElement => {
     window.addEventListener("keypress", handleAutoplay);
     window.addEventListener("keypress", handleNewGame);
     return () => {
-      window.removeEventListener("keydown", checkDontMove);
+      // window.removeEventListener("keydown", checkDontMove);
       window.removeEventListener("keypress", handleAutoplay);
     };
   }, []);
@@ -143,7 +145,7 @@ export const Game = (props: any): ReactElement => {
         autoPlayReset = false;
       }
 
-      const newBrickSet: any = brick(PLAYER.level, bricks, canvas, BRICK);
+      const newBrickSet: Array<BrickSet> = brick(PLAYER.level, bricks, canvas, BRICK);
       if (newBrickSet && newBrickSet.length > 0) {
         bricks = newBrickSet;
       }

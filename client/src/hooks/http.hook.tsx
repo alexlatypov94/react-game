@@ -15,7 +15,6 @@ export const useHttp = (): any => {
       }
       const response: any = await fetch(url, { method, body, headers });
       const data: any = await response.json();
-      console.log(response);
       if (!response.ok) {
         throw new Error(data.message || "Что-то пошло не так");
       }

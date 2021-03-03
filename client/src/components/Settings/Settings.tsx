@@ -1,20 +1,22 @@
 import React, { ReactElement, useContext, useState } from "react";
-import { BALL, SOUND_MUSIC_IMG } from "../core";
+import { BALL, BRICK, SOUND_MUSIC_IMG } from "../core";
+import { Ball } from "../Game";
 import { LangContext } from "../util";
 import "./Settings.scss";
 
 export const Settings = (props: any): ReactElement => {
   const lang: any = useContext(LangContext);
+  const [activeSpeed, setActiveSpeed] = useState(false);
 
-  const handleValue = (e: any) => {
+  const handleValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.handleChange(e);
   };
 
-  const handleButton = (e: any) => {
+  const handleButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     props.onHandleMusic(e);
   };
 
-  const handleLang = (e: any) => {
+  const handleLang = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.onLangChange(e);
   };
 
@@ -23,7 +25,8 @@ export const Settings = (props: any): ReactElement => {
   };
 
   const handleBallSpeed = (e: any) => {
-    BALL.speed = e.target.value;
+    BALL.speed = Number(e.target.value);
+    setActiveSpeed(!activeSpeed);
   };
 
   return (
@@ -73,24 +76,60 @@ export const Settings = (props: any): ReactElement => {
       <div className="brick-color-settings">
         <h1>{lang === "en" ? "Bricks color" : "Цвет кирпича"}</h1>
         <div className="brick-color-wrapper">
-          <button className="brick-color blue" value="#0019fc" onClick={handleBtnColor}></button>
-          <button className="brick-color red" value="#fc0000" onClick={handleBtnColor}></button>
-          <button className="brick-color green" value="#08fc00" onClick={handleBtnColor}></button>
-          <button className="brick-color yellow" value="#f8fc00" onClick={handleBtnColor}></button>
-          <button className="brick-color purple" value="#e700fc" onClick={handleBtnColor}></button>
-          <button className="brick-color orange" value="#fc6500" onClick={handleBtnColor}></button>
+          <button
+            className={BRICK.colors === ("#0019fc" || "blue") ? "brick-color blue current-color" : "brick-color blue"}
+            value="#0019fc"
+            onClick={handleBtnColor}
+          ></button>
+          <button
+            className={BRICK.colors === "#fc0000" ? "brick-color red current-color" : "brick-color red"}
+            value="#fc0000"
+            onClick={handleBtnColor}
+          ></button>
+          <button
+            className={BRICK.colors === "#08fc00" ? "brick-color green current-color" : "brick-color green"}
+            value="#08fc00"
+            onClick={handleBtnColor}
+          ></button>
+          <button
+            className={BRICK.colors === "#f8fc00" ? "brick-color yellow current-color" : "brick-color yellow"}
+            value="#f8fc00"
+            onClick={handleBtnColor}
+          ></button>
+          <button
+            className={BRICK.colors === "#e700fc" ? "brick-color purple current-color" : "brick-color purple"}
+            value="#e700fc"
+            onClick={handleBtnColor}
+          ></button>
+          <button
+            className={BRICK.colors === "#fc6500" ? "brick-color orange current-color" : "brick-color orange"}
+            value="#fc6500"
+            onClick={handleBtnColor}
+          ></button>
         </div>
       </div>
       <div className="ball-speed-wrapper">
         <h1>{lang === "en" ? "Ball speed" : "Скорость шара"}</h1>
         <div className="ball-speed-btns">
-          <button className="ball-speed low" value="5" onClick={handleBallSpeed}>
+          <button
+            className={BALL.speed === 5 ? "ball-speed low ball-speed-active" : "ball-speed low"}
+            value="5"
+            onClick={handleBallSpeed}
+          >
             {lang === "en" ? "Low speed" : "Низкая скорость"}
           </button>
-          <button className="ball-speed medium" value="10" onClick={handleBallSpeed}>
+          <button
+            className={BALL.speed === 10 ? "ball-speed medium ball-speed-active" : "ball-speed medium"}
+            value="10"
+            onClick={handleBallSpeed}
+          >
             {lang === "en" ? "Medium speed" : "Средняя скорость"}
           </button>
-          <button className="ball-speed high" value="15" onClick={handleBallSpeed}>
+          <button
+            className={BALL.speed === 15 ? "ball-speed high ball-speed-active" : "ball-speed high"}
+            value="15"
+            onClick={handleBallSpeed}
+          >
             {lang === "en" ? "High speed" : "Высокая скорость"}
           </button>
         </div>

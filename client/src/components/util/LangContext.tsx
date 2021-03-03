@@ -1,6 +1,7 @@
 import React from "react";
+import { LangCont } from "../core/interfaces";
 
-export const languarges: any = {
+export const languarges: LangCont = {
   en: "en",
   ru: "ru"
 };

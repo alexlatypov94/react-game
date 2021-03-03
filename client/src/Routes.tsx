@@ -8,24 +8,24 @@ export const useRoutes = (isAutenticated: boolean): ReactElement => {
   const [lang, setLang] = useState("en");
   const [musicVolume, setMusicVolume] = useState(false);
   const [soundVolume, setSoundVolume] = useState(false);
-  const [valueMusic, setValueMusic] = useState(50);
-  const [valueSound, setValueSound] = useState(50);
+  const [valueMusic, setValueMusic] = useState(100);
+  const [valueSound, setValueSound] = useState(100);
   const [colorBrick, setColorBrick] = useState(BRICK.colors);
   const [colorChange, setColorChange] = useState(false);
 
   const [missAuth, setMissAuth] = useState(false);
 
   window.addEventListener("mousemove", () => {
-    // MAIN_MUSIC.play();
+    MAIN_MUSIC.play();
   });
 
   MAIN_MUSIC.loop = true;
 
-  const handleLang = (e: any) => {
+  const handleLang = (e) => {
     return e.target.id === "LangEN" ? setLang("en") : setLang("ru");
   };
 
-  const handleMusic = (e: any) => {
+  const handleMusic = (e) => {
     if (e.target.id === "MusicBtn") {
       setMusicVolume(!musicVolume);
       return !musicVolume === false ? (MAIN_MUSIC.volume = valueMusic / 100) : (MAIN_MUSIC.volume = 0);
@@ -35,7 +35,7 @@ export const useRoutes = (isAutenticated: boolean): ReactElement => {
     }
   };
 
-  const handleMusicChange = (e: any) => {
+  const handleMusicChange = (e) => {
     if (e.target.id === "music") {
       setValueMusic(parseInt(e.target.value, 10));
       MAIN_MUSIC.volume = valueMusic / 100;
@@ -62,7 +62,7 @@ export const useRoutes = (isAutenticated: boolean): ReactElement => {
     setColorChange(true);
   };
 
-  const handlerMissAuth = (e) => {
+  const handlerMissAuth = () => {
     setMissAuth(true);
   };
 

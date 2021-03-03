@@ -6,13 +6,14 @@ import "./Header.scss";
 
 export const Header = (): ReactElement => {
   const history: any = useHistory();
-  const lang: any = useContext(LangContext);
+  const lang: string = useContext(LangContext);
   const auth: any = useContext(AuthContext);
-  const logoutHandler = (event: any) => {
+  const logoutHandler = (event: React.MouseEvent) => {
     event.preventDefault();
     auth.logout();
     history.push("/");
   };
+
   return (
     <header>
       <div className="nav-item">
@@ -20,9 +21,6 @@ export const Header = (): ReactElement => {
       </div>
       <div className="nav-item">
         <NavLink to="/settings">{lang === "en" ? "Settings" : "Настройки"}</NavLink>
-      </div>
-      <div className="header-title">
-        <img src="../../../public/assets/img/logo512.png" alt="" />
       </div>
       <div className="nav-item">
         <NavLink to="/score">{lang === "en" ? "Statistic" : "Статистика"}</NavLink>

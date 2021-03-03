@@ -1,20 +1,18 @@
 import React, { ReactElement, useContext } from "react";
+import { ScoreObj } from "../core/interfaces";
 import { LangContext } from "../util";
 import { ScoreRow } from "./index";
 import "./Score.scss";
 
 export const Score = (): ReactElement => {
-  const lang: any = useContext(LangContext);
-  const stat: any = JSON.parse(localStorage.getItem("Statistics"));
+  const lang: string = useContext(LangContext);
+  const stat: Array<ScoreObj> = JSON.parse(localStorage.getItem("Statistics")!) || [];
 
   stat.sort((a, b) => (a.score > b.score ? -1 : 1));
 
   if (stat.length > 10) {
-    console.log("called");
-    stat.splice(10, stat.length);
+    stat?.splice(10, stat.length);
   }
-
-  console.log(stat);
 
   return (
     <div className="score-wrapper">

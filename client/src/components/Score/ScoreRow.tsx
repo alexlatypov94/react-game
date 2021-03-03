@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import "./Score.scss";
 
-export const ScoreRow = (props): ReactElement => {
+export const ScoreRow = (props: any): ReactElement => {
   return (
     <div className="score-table-row">
       <div className="total-place table-column">{props.pos}</div>

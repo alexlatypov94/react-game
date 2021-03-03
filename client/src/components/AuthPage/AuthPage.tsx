@@ -1,10 +1,8 @@
 import React, { ReactElement, useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context";
 import { useHttp, useMessage } from "../../hooks";
-import { PLAYER } from "../core";
-// import "./AuthPages.scss";
 
-export const AuthPage = (props): ReactElement => {
+export const AuthPage = (props: any): ReactElement => {
   const auth: any = useContext(AuthContext);
   const message: any = useMessage();
   const { loading, error, request, clearError } = useHttp();
@@ -18,7 +16,7 @@ export const AuthPage = (props): ReactElement => {
     clearError();
   }, [error, message, clearError]);
 
-  const changeHandler = (event: any) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
@@ -26,7 +24,9 @@ export const AuthPage = (props): ReactElement => {
     try {
       const data: any = await request("/api/auth/register", "POST", { ...form });
       message(data.message);
-    } catch (e) {}
+    } catch (e) {
+      return;
+    }
   };
 
   const loginHandler = async () => {
@@ -34,10 +34,12 @@ export const AuthPage = (props): ReactElement => {
       const data: any = await request("/api/auth/login", "POST", { ...form });
       localStorage.setItem("UserName", form.email);
       auth.login(data.token, data.userId);
-    } catch (e) {}
+    } catch (e) {
+      return;
+    }
   };
 
-  const handlerMissAuth = (e) => {
+  const handlerMissAuth = (e: React.MouseEvent) => {
     props.missFunc(e);
   };
 

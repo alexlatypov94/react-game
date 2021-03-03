@@ -3,7 +3,7 @@ import { LangContext } from "../util";
 import "./AboutGame.scss";
 
 export const AboutGame = (): ReactElement => {
-  const lang: any = useContext(LangContext);
+  const lang: string = useContext(LangContext);
   return (
     <div className="about-game-wrapper">
       <div className="hot-key-row">
