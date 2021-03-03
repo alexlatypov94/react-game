@@ -1,6 +1,5 @@
 import React, { ReactElement, useContext, useState } from "react";
 import { BALL, BRICK, SOUND_MUSIC_IMG } from "../core";
-import { Ball } from "../Game";
 import { LangContext } from "../util";
 import "./Settings.scss";
 

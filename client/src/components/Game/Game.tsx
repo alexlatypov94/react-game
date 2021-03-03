@@ -122,7 +122,7 @@ export const Game = (props: any): ReactElement => {
     window.addEventListener("keypress", handleAutoplay);
     window.addEventListener("keypress", handleNewGame);
     return () => {
-      // window.removeEventListener("keydown", checkDontMove);
+      window.removeEventListener("keydown", checkDontMove);
       window.removeEventListener("keypress", handleAutoplay);
     };
   }, []);
