@@ -1,0 +1,52 @@
+canvas {
+  border: 3px solid #000;
+  border-radius: 0.5rem;
+  background: url(../../../public/assets/img/canvas-bg.jpg);
+  background-size: cover;
+}
+.wrapper-game-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .autoplay {
+    bottom: -10%;
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(123, 252, 2);
+    background: rgb(55, 0, 255);
+    border: none;
+    padding: 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    outline: none;
+    &:hover {
+      color: rgb(55, 0, 255);
+      background: rgb(123, 252, 2);
+    }
+  }
+
+  .newGame {
+    padding: 1rem 2.5rem;
+    border: none;
+    background: rgba(253, 1, 198, 0.7);
+    color: #fff;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-top: 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    outline: none;
+    margin-left: 2rem;
+    &:hover {
+      background: rgba(253, 1, 198, 1);
+    }
+  }
+  .canvas-wrapper {
+    outline: none;
+  }
+}
+
+.canvas-wrapper-active {
+  box-shadow: 0px 0px 15px 15px rgba(212, 225, 234, 0.3);
+}

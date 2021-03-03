@@ -1,0 +1,63 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 0;
+  width: 100%;
+  margin: 0 auto;
+
+  .header-title img {
+    width: 40px;
+    animation: logo-rotate infinite 10s linear;
+  }
+
+  .nav-item {
+    a {
+      font-size: 2rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 0.2rem;
+
+      &:hover {
+        color: rgb(207, 61, 61);
+      }
+    }
+
+    a.active {
+      color: rgb(255, 238, 0);
+    }
+
+    .nav-item-logout {
+      background: rgb(255, 0, 0);
+      padding: 0.5rem;
+      border-radius: 5px;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+        color: rgb(59, 253, 0);
+      }
+    }
+  }
+}
+
+@keyframes logo-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    .nav-item {
+      a {
+        font-size: 1.7rem;
+      }
+    }
+  }
+}

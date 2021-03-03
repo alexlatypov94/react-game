@@ -1,0 +1,39 @@
+.score-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .score-title {
+    font-weight: bold;
+    font-size: 3rem;
+    color: rgb(240, 4, 208);
+    margin-bottom: 1rem;
+  }
+}
+
+.score-table-row {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 10% 30% 60%;
+
+  .score-person-name {
+        background-color: rgba(198, 9, 245, 0.658);
+  }
+
+  .total-place {
+      background-color: rgba(252, 215, 6, 0.63);
+  }
+
+  .total-score {
+      background-color: rgba(15, 179, 190, 0.596);
+  }
+}
+
+.table-column {
+  border: 2px solid rgb(0, 225, 255);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0.5rem;
+}
